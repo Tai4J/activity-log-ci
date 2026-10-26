@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Client-side guard: refuse any push to main that is not a fast-forward,
+# and refuse pushing local merge commits straight to main.
+# Install:  ./scripts/install-hooks.sh
+# (Server-side, branch protection is the real gate; this catches mistakes earlier.)
+
+protected="refs/heads/main"
+zero="0000000000000000000000000000000000000000"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ "$remote_ref" = "$protected" ] || continue
+  [ "$local_sha" = "$zero" ] && { echo "✖ refusing to delete main"; exit 1; }
+
+  if [ "$remote_sha" != "$zero" ] && ! git merge-base --is-ancestor "$remote_sha" "$local_sha"; then
+    echo "✖ non-fast-forward push to main blocked (would rewrite history)."
+    exit 1
+  fi
+
+  range="$local_sha"
+  [ "$remote_sha" != "$zero" ] && range="$remote_sha..$local_sha"
+  if [ -n "$(git rev-list --merges "$range")" ]; then
+    echo "✖ local merge commits headed for main. Merge through a PR instead."
+    exit 1
+  fi
+
+  if [ "${ALLOW_MAIN_PUSH:-0}" != "1" ]; then
+    echo "✖ direct push to main is not allowed — open a PR."
+    echo "  (bootstrap only: ALLOW_MAIN_PUSH=1 git push)"
+    exit 1
+  fi
+done
+exit 0
