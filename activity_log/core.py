@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from datetime import date
 
 APP_NAME = "Team Activity Tracker"
+VERSION = "0.1.0"
 
 
 @dataclass(frozen=True)
