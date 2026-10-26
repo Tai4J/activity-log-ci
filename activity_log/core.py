@@ -6,8 +6,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import date
 
-APP_NAME = "Activity Tracker"
-VERSION = "0.1.0"
+APP_NAME = "Team Activity Tracker"
 
 
 @dataclass(frozen=True)
