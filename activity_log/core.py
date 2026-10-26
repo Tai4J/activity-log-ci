@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from dataclasses import dataclass
-from datetime import date
+from datetime import UTC, date, datetime
 
 APP_NAME = "Team Activity Tracker"
 VERSION = "0.1.0"
@@ -44,3 +44,8 @@ def by_activity(entries: Iterable[Entry]) -> dict[str, int]:
     for e in entries:
         totals[e.activity] = totals.get(e.activity, 0) + e.minutes
     return dict(sorted(totals.items(), key=lambda kv: (-kv[1], kv[0])))
+
+
+def today_utc() -> date:
+    """Today's date in UTC."""
+    return datetime.now(UTC).date()
