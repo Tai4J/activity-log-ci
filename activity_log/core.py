@@ -32,7 +32,7 @@ def parse_line(line: str) -> Entry:
     minutes = int(minutes_s)
     if minutes <= 0:
         raise ValueError("minutes must be positive")
-    return Entry(date.fromisoformat(day_s), activity, minutes)
+    return Entry(date.fromisoformat(day_s), activity.lower(), minutes)
 
 
 def total_minutes(entries: Iterable[Entry]) -> int:
