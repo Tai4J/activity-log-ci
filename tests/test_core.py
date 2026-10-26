@@ -6,7 +6,7 @@ from activity_log import Entry, banner, by_activity, parse_line, total_minutes
 
 
 def test_banner_contains_version():
-    assert banner().startswith(" v0.1.0")
+    assert banner().endswith(" v0.1.0")
 
 
 def test_parse_line_ok():
