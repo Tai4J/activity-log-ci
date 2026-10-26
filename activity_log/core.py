@@ -6,7 +6,7 @@ from collections.abc import Iterable
 from dataclasses import dataclass
 from datetime import date
 
-APP_NAME = "Activity Log"
+APP_NAME = "Team Activity Log"
 VERSION = "0.1.0"
 
 
