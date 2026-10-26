@@ -14,3 +14,9 @@ python -m activity_log.cli data/log.csv
 - Never push to `main`; branch → PR → green CI → merge.
 - After cloning, run `./scripts/install-hooks.sh` (pre-push guard + `git rerere`).
 - CI: ruff lint/format → pytest on Python 3.10/3.11/3.12 → build. The required check is **ci-passed**.
+
+
+## Team
+
+- PM: Tai4J
+- Collaborators: Xiu-D, Bruce950304
